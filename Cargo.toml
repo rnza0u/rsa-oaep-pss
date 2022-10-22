@@ -6,7 +6,7 @@ authors = ["N'zaou Renaud <nzaou.renaud@gmail.com>"]
 rust-version = "1.63"
 description = "A pure Rust implementation of the RSA public key cryptosystem"
 repository = "https://github.com/Hakhenaton/rsa-oaep-pss"
-licence-file = "LICENCE"
+license-file = "LICENCE"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
