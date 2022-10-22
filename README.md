@@ -14,7 +14,7 @@ The following features are available:
 ## Useful links
 
 - [crates.io](https://crates.io/crates/rsa_oaep_pss)
-- [docs.rs](https://docs.rs/rsa/latest/rsa-oaep-pss)
+- [docs.rs](https://docs.rs/rsa-oaep-pss)
 - [PKCS#1 RFC](https://www.rfc-editor.org/rfc/pdfrfc/rfc8017.txt.pdf)
 
 ## Installation
