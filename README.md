@@ -1,6 +1,6 @@
 # RSA-OAEP-PSS
 
-[![Build Status](https://drone.rnzaou.me/api/badges/Hakhenaton/rsa-oaep/status.svg)](https://drone.rnzaou.me/Hakhenaton/rsa-oaep)
+[![Build Status](https://drone.rnzaou.me/api/badges/Hakhenaton/rsa-oaep-pss/status.svg)](https://drone.rnzaou.me/Hakhenaton/rsa-oaep-pss)
 
 A pure Rust implementation of the RSA public key cryptosystem. 
 
