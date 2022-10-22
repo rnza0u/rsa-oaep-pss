@@ -1,0 +1,19 @@
+kind: pipeline
+type: docker
+name: Build pipeline
+steps:
+- name: check
+  image: rust:1.63.0-buster
+  commands:
+  - cargo check
+- name: build
+  image: rust:1.63.0-buster
+  commands:
+  - cargo build --release
+- name: test
+  image: rust:1.63.0-buster
+  commands:
+  - cargo test --release
+trigger:
+  event:
+  - push
