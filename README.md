@@ -23,10 +23,10 @@ Add the following line to your `Cargo.toml` dependencies:
 
 ```toml
 [dependencies]
-rsa-oaep-pss = "<version>"
+rsa-oaep-pss = "1"
 ```
 
-Check the [crates.io](https://crates.io/crates/rsa_oaep_pss) page to check out what is the current version.
+Check out the [crates.io](https://crates.io/crates/rsa_oaep_pss) page to see what is the latest version of this crate.
 
 ## How to use ?
 
@@ -74,5 +74,5 @@ assert!(verification.is_ok());
 You can run examples contained in the `examples` folder by using the following command:
 
 ```sh
-cargo run --example <filename>.rs --release 
+cargo run --example <filename> --release 
 ```
