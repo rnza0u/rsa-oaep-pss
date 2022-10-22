@@ -1,10 +1,12 @@
+/// An RSA error object
 #[derive(Debug)]
 pub struct RsaError {
     message: String,
 }
 
 impl RsaError {
-    pub fn new(msg: &str) -> Self {
+
+    pub(crate) fn new(msg: &str) -> Self {
         RsaError {
             message: msg.to_string(),
         }

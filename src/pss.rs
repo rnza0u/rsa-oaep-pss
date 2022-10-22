@@ -8,6 +8,7 @@ use crate::{
     RsaError, RsaPrivateKey, RsaPublicKey,
 };
 
+/// An Probabilistic Signature Schema object used for signature and verification.
 pub struct RsaPss<T>
 where
     T: RngCore + CryptoRng,
@@ -22,14 +23,14 @@ impl<T> RsaPss<T>
 where
     T: RngCore + CryptoRng,
 {
-    /** 
-     * Create an OAEP scheme object for encryption or decryption.
-     * You must provide a hash function and a random number generator instance.
-     * */
+     
+    /// Create a new [`RsaPss`] object.
     pub fn new(rng: T, hash: &dyn DynDigest) -> Self {
         Self::new_with_salt_length(rng, hash, 32)
     }
 
+    
+    /// Create a new [`RsaPss`] object with a specific salt length.
     pub fn new_with_salt_length(rng: T, hash: &dyn DynDigest, salt_length: usize) -> Self {
         RsaPss {
             rng,
@@ -39,6 +40,7 @@ where
         }
     }
 
+    ///  Create a new signature for a given message
     pub fn sign(
         &mut self,
         private_key: &RsaPrivateKey,
@@ -57,6 +59,7 @@ where
         Ok(output)
     }
 
+    ///  Verify a message against a signature
     pub fn verify(
         &mut self,
         public_key: &RsaPublicKey,

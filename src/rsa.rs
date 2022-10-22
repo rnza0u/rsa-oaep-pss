@@ -20,6 +20,7 @@ pub struct RsaPublicKey {
 }
 
 impl RsaPublicKey {
+    
     pub(crate) fn rsaep(&self, message: &BigUint) -> Result<BigUint, RsaError> {
         check_message_representative(message, &self.modulus)?;
         Ok(modular_pow(message, &self.public_exponent, &self.modulus))
@@ -30,11 +31,15 @@ impl RsaPublicKey {
         Ok(modular_pow(message, &self.public_exponent, &self.modulus))
     }
 
+    /**
+     * Get the modulus (n) size in bytes.
+     */
     pub fn get_modulus_size(&self) -> usize {
         (self.modulus.bits() as usize) / 8
     }
 }
 
+/// An RSA private key
 #[derive(Debug)]
 pub struct RsaPrivateKey {
     modulus: BigUint,
@@ -60,6 +65,9 @@ impl RsaPrivateKey {
         ))
     }
 
+    /**
+     * Get the modulus (n) size in bytes.
+     */
     pub fn get_modulus_size(&self) -> usize {
         (self.modulus.bits() as usize) / 8
     }
