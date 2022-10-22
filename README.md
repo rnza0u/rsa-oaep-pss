@@ -4,10 +4,10 @@
 
 A pure Rust implementation of the RSA public key cryptosystem. 
 
-The following schemes are available:
+The following features are available:
 
-- Encryption using Optimal Asymmetric Encryption Padding (OAEP): https://fr.wikipedia.org/wiki/Optimal_Asymmetric_Encryption_Padding
-- Probabilistic signature (PSS): https://en.wikipedia.org/wiki/Probabilistic_signature_scheme
+- Encryption using [Optimal Asymmetric Encryption Padding (OAEP)](https://fr.wikipedia.org/wiki/Optimal_Asymmetric_Encryption_Padding)
+- Signature using [Probabilistic Signature Scheme (PSS)](https://en.wikipedia.org/wiki/Probabilistic_signature_scheme)
 
 > :warning: **This crate has not been audited by any peer**: We encourage you to review the code carefully before using it.
 
@@ -43,11 +43,11 @@ let message = b"some secret";
 let mut oaep = rsa_oaep_pss::RsaOaep::new(rand::rngs::OsRng, &sha2::Sha256::new());
 
 let ciphertext = oaep
-    .encrypt(&public_key, message, None)
+    .encrypt(&public_key, message)
     .expect("encryption error");
 
 let recovered = oaep
-    .decrypt(&private_key, &ciphertext, None)
+    .decrypt(&private_key, &ciphertext)
     .expect("decryption error");
 
 assert_eq!(recovered, message);
