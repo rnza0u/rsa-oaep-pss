@@ -23,8 +23,10 @@ Add the following line to your `Cargo.toml` dependencies:
 
 ```toml
 [dependencies]
-rsa-oaep-pss = "1.0.2"
+rsa-oaep-pss = "<version>"
 ```
+
+Check the [crates.io](https://crates.io/crates/rsa_oaep_pss) page to check out what is the current version.
 
 ## How to use ?
 
