@@ -23,7 +23,7 @@ Add the following line to your `Cargo.toml` dependencies:
 
 ```toml
 [dependencies]
-rsa_oaep_pss = 0.1
+rsa_oaep_pss = 1.0.0
 ```
 
 ## How to use ?
@@ -71,6 +71,6 @@ assert!(verification.is_ok());
 
 You can run examples contained in the `examples` folder by using the following command:
 
-```shell
+```sh
 cargo run --example <filename>.rs --release 
 ```
