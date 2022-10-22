@@ -1,4 +1,4 @@
-/// An RSA error object
+/// An RSA error object.
 #[derive(Debug)]
 pub struct RsaError {
     message: String,

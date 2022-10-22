@@ -9,10 +9,9 @@ use rand_core::{CryptoRng, RngCore};
 
 pub(crate) const PUBLIC_EXPONENT: u32 = 65537;
 
-/**
- * A public RSA key.
- * Contains the modulus n and the public exponent.
- */
+
+/// An RSA public key.
+/// Contains the modulus (n) and the public exponent(e).
 #[derive(Debug)]
 pub struct RsaPublicKey {
     modulus: BigUint,
@@ -31,15 +30,14 @@ impl RsaPublicKey {
         Ok(modular_pow(message, &self.public_exponent, &self.modulus))
     }
 
-    /**
-     * Get the modulus (n) size in bytes.
-     */
+    /// Get the modulus (n) size in bytes.
     pub fn get_modulus_size(&self) -> usize {
         (self.modulus.bits() as usize) / 8
     }
 }
 
-/// An RSA private key
+/// An RSA private key.
+/// Contains the modulus (n) and the private exponent (d)
 #[derive(Debug)]
 pub struct RsaPrivateKey {
     modulus: BigUint,
@@ -65,9 +63,8 @@ impl RsaPrivateKey {
         ))
     }
 
-    /**
-     * Get the modulus (n) size in bytes.
-     */
+
+    ///  Get the modulus (n) size in bytes.
     pub fn get_modulus_size(&self) -> usize {
         (self.modulus.bits() as usize) / 8
     }
@@ -80,12 +77,9 @@ fn check_message_representative(r: &BigUint, m: &BigUint) -> Result<(), RsaError
     Ok(())
 }
 
-/**
- * Generate a pair of RSA keys.
- * The function must be provided with a reference to a cryptographically secure random number generator (RNG).
- * The modulus length must be expressed in bits.
- * Keys can be either 2048, 3072 or 4096 bits long.
- */
+
+/// Generate a pair of RSA keys using the provided RNG and modulus length in bits.
+/// Acceptable modulus length are 2048, 3072 or 4096.
 pub fn generate_rsa_keys<T>(
     rng: &mut T,
     modulus_length: usize,

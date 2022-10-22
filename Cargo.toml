@@ -1,6 +1,6 @@
 [package]
 name = "rsa-oaep-pss"
-version = "1.0.2"
+version = "1.0.3"
 edition = "2021"
 authors = ["N'zaou Renaud <nzaou.renaud@gmail.com>"]
 rust-version = "1.63"

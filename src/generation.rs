@@ -6,12 +6,11 @@ use crate::{arithmetic::modular_pow, utils::os2ip};
 
 use super::errors::RsaError;
 
-/**
- * Generate a probable prime number using the given RNG as a source of randomness.
- * This function will use multithreading.
- * Error can happen if the RNG fails to generate randomn data, otherwise
- * a prime number of the given length will eventually be returned.
- */
+
+/// Generate a probable prime number using the given RNG as a source of randomness.
+/// This function will use multithreading.
+/// Error can happen if the RNG fails to generate randomn data, otherwise
+/// a prime number of the given length will eventually be returned.
 pub fn generate_prime<T>(rng: &mut T, length: usize) -> Result<BigUint, RsaError>
 where
     T: RngCore + CryptoRng,
@@ -63,12 +62,10 @@ where
     }
 }
 
-/**
- * Check if n is prime or composite.
- * Returns false if n is composite, true if the n is likely to be a prime.
- * We use the little Fermat theorem to check if the numbers [2, 3, 5, 7], each raised to the power of phi(n) are
- * congruent to 1, using n as a modulus.
- */
+/// Check if n is prime or composite.
+/// Returns false if n is composite, true if the n is likely to be a prime.
+/// We use the little Fermat theorem to check if the numbers [2, 3, 5, 7], each raised to the power of phi(n) are
+/// congruent to 1, using n as a modulus.
 fn is_prime(n: &BigUint) -> bool {
     let witnesses = [2_u8, 3, 5, 7].map(|witness| BigUint::from_u8(witness).unwrap());
     let phi_n = n - BigUint::one();

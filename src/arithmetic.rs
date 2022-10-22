@@ -1,10 +1,8 @@
 use num_bigint::{BigInt, BigUint, ToBigInt};
 use num_traits::{One, ToPrimitive, Zero};
 
-/**
- * Elevate base to the power of exp modularly, using m as a modulus.
- * This function uses the square and multiply method.
- */
+/// Elevate `base` to the power of `exp` using m as a modulus.
+/// This function uses the square and multiply method.
 pub(crate) fn modular_pow(base: &BigUint, exp: &BigUint, m: &BigUint) -> BigUint {
     let mut result = BigUint::one();
     let mut _exp = exp.clone();
@@ -23,10 +21,8 @@ pub(crate) fn modular_pow(base: &BigUint, exp: &BigUint, m: &BigUint) -> BigUint
     result
 }
 
-/**
- * Find the modular inverse of a with n as a modulus.
- * If GCD(a, n) is not equal to zero, then None will be returned.
- */
+/// Find the modular inverse of a with n as a modulus.
+/// If GCD(a, n) is not equal to zero, then None will be returned.
 pub(crate) fn modular_inverse(a: &BigUint, n: &BigUint) -> Option<BigUint> {
     let mut s = BigInt::one();
     let mut old_s = BigInt::zero();

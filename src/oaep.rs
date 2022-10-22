@@ -30,7 +30,7 @@ where
         }
     }
 
-    /// Encrypt a message
+    /// Encrypt a message.
     pub fn encrypt(
         &mut self,
         public_key: &RsaPublicKey,
@@ -39,7 +39,7 @@ where
         self.encrypt_with_label(public_key, message, b"")
     }
 
-    /// Encrypt a message with a user-provided label
+    /// Encrypt a message with a user-provided label.
     pub fn encrypt_with_label(
         &mut self,
         public_key: &RsaPublicKey,
@@ -97,7 +97,7 @@ where
         i2osp(&c, k)
     }
 
-    /// Decrypt a message
+    /// Decrypt a message.
     pub fn decrypt(
         &mut self,
         private_key: &RsaPrivateKey,
@@ -106,7 +106,7 @@ where
         self.decrypt_with_label(private_key, ciphertext, b"")
     }
 
-    /// Decrypt a message with a user-provided label
+    /// Decrypt a message and check user-provided label.
     pub fn decrypt_with_label(
         &mut self,
         private_key: &RsaPrivateKey,

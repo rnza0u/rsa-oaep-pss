@@ -8,7 +8,7 @@ use crate::{
     RsaError, RsaPrivateKey, RsaPublicKey,
 };
 
-/// An Probabilistic Signature Schema object used for signature and verification.
+/// A Probabilistic Signature Scheme object used for signature and verification.
 pub struct RsaPss<T>
 where
     T: RngCore + CryptoRng,
@@ -24,13 +24,13 @@ where
     T: RngCore + CryptoRng,
 {
      
-    /// Create a new [`RsaPss`] object.
+    /// Create a new [`RsaPss`] object using the provided RNG and hash function.
     pub fn new(rng: T, hash: &dyn DynDigest) -> Self {
         Self::new_with_salt_length(rng, hash, 32)
     }
 
     
-    /// Create a new [`RsaPss`] object with a specific salt length.
+    /// Create a new [`RsaPss`] object using the provided RNG, hash function and salt length.
     pub fn new_with_salt_length(rng: T, hash: &dyn DynDigest, salt_length: usize) -> Self {
         RsaPss {
             rng,
@@ -40,7 +40,7 @@ where
         }
     }
 
-    ///  Create a new signature for a given message
+    ///  Sign a message.
     pub fn sign(
         &mut self,
         private_key: &RsaPrivateKey,
@@ -59,7 +59,7 @@ where
         Ok(output)
     }
 
-    ///  Verify a message against a signature
+    ///  Verify a signature against a message.
     pub fn verify(
         &mut self,
         public_key: &RsaPublicKey,
