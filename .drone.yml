@@ -1,3 +1,4 @@
+---
 kind: pipeline
 type: docker
 name: Build pipeline
@@ -14,6 +15,21 @@ steps:
   image: rust:1.63.0-buster
   commands:
   - cargo test --release
+- name: publish
+  image: rust:1.63.0-buster
+  commands:
+  - cargo publish
+  environment:
+    CARGO_REGISTRY_TOKEN:
+      from_secret: CARGO_TOKEN
+  when:
+    branch:
+    - master
 trigger:
   event:
   - push
+---
+kind: signature
+hmac: b8356cd288411869e2be233aa6c7dd4db99cc4c313f55daae9c309cd5d0c22cd
+
+...
