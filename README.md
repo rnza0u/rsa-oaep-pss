@@ -23,7 +23,7 @@ Add the following line to your `Cargo.toml` dependencies:
 
 ```toml
 [dependencies]
-rsa_oaep_pss = 1.0.0
+rsa_oaep_pss = "1.0.1"
 ```
 
 ## How to use ?
