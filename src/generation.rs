@@ -6,7 +6,6 @@ use crate::{arithmetic::modular_pow, utils::os2ip};
 
 use super::errors::RsaError;
 
-
 /// Generate a probable prime number using the given RNG as a source of randomness.
 /// This function will use multithreading.
 /// Error can happen if the RNG fails to generate randomn data, otherwise
@@ -31,10 +30,10 @@ where
             random_bytes[i + length - 1] |= 0b00000001;
         }
 
-        let mut threads = vec![];
+        let mut threads = Vec::with_capacity(threads_count);
 
         for i in 0..threads_count {
-            let mut candidates: Vec<BigUint> = vec![];
+            let mut candidates: Vec<BigUint> = Vec::with_capacity(NUMBERS_PER_THREAD);
 
             for y in 0..NUMBERS_PER_THREAD {
                 let offset = (length * y) + (i * NUMBERS_PER_THREAD * length);

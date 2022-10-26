@@ -11,7 +11,7 @@ The following features are available:
 - Encryption using [Optimal Asymmetric Encryption Padding (OAEP)](https://fr.wikipedia.org/wiki/Optimal_Asymmetric_Encryption_Padding)
 - Signature using [Probabilistic Signature Scheme (PSS)](https://en.wikipedia.org/wiki/Probabilistic_signature_scheme)
 
-> :warning: **This crate has not been audited by any peer**: We encourage you to review the code carefully before using it.
+> :warning: **This crate has not been audited by any peer and is not production-ready**: We encourage you to review the code carefully before using it.
 
 ## Useful links
 

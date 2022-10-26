@@ -7,7 +7,7 @@ use crate::{
     RsaError, RsaPrivateKey, RsaPublicKey,
 };
 
-/// An Optimal Asymmetric Encryption Padding scheme object used for encryption or decryption. 
+/// An Optimal Asymmetric Encryption Padding scheme object used for encryption or decryption.
 pub struct RsaOaep<T>
 where
     T: CryptoRng + RngCore,
@@ -34,7 +34,7 @@ where
     pub fn encrypt(
         &mut self,
         public_key: &RsaPublicKey,
-        message: &[u8]
+        message: &[u8],
     ) -> Result<Vec<u8>, RsaError> {
         self.encrypt_with_label(public_key, message, b"")
     }
@@ -67,9 +67,7 @@ where
         };
 
         let ps = vec![0_u8; k - message.len() - two_hash_length - 2];
-        let mut db = [label_hash, ps].concat();
-        db.push(0x01);
-        db.extend_from_slice(message);
+        let db = [label_hash, ps, vec![0x01], message.to_vec()].concat();
 
         let mut seed = vec![0_u8; hash_length];
 
@@ -101,7 +99,7 @@ where
     pub fn decrypt(
         &mut self,
         private_key: &RsaPrivateKey,
-        ciphertext: &[u8]
+        ciphertext: &[u8],
     ) -> Result<Vec<u8>, RsaError> {
         self.decrypt_with_label(private_key, ciphertext, b"")
     }

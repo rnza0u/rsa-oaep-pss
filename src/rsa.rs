@@ -4,11 +4,10 @@ use crate::{
     generation::generate_prime,
 };
 use num_bigint::BigUint;
-use num_traits::{FromPrimitive, One};
+use num_traits::{FromPrimitive, One, Zero};
 use rand_core::{CryptoRng, RngCore};
 
 pub(crate) const PUBLIC_EXPONENT: u32 = 65537;
-
 
 /// An RSA public key.
 /// Contains the modulus (n) and the public exponent(e).
@@ -19,7 +18,6 @@ pub struct RsaPublicKey {
 }
 
 impl RsaPublicKey {
-    
     pub(crate) fn rsaep(&self, message: &BigUint) -> Result<BigUint, RsaError> {
         check_message_representative(message, &self.modulus)?;
         Ok(modular_pow(message, &self.public_exponent, &self.modulus))
@@ -63,7 +61,6 @@ impl RsaPrivateKey {
         ))
     }
 
-
     ///  Get the modulus (n) size in bytes.
     pub fn get_modulus_size(&self) -> usize {
         (self.modulus.bits() as usize) / 8
@@ -77,7 +74,6 @@ fn check_message_representative(r: &BigUint, m: &BigUint) -> Result<(), RsaError
     Ok(())
 }
 
-
 /// Generate a pair of RSA keys using the provided RNG and modulus length in bits.
 /// Acceptable modulus length are 2048, 3072 or 4096.
 pub fn generate_rsa_keys<T>(
@@ -88,19 +84,27 @@ where
     T: CryptoRng + RngCore,
 {
     let n_bytes_length = match modulus_length {
-        2048 | 3072 | 4096 => modulus_length,
+        2048 | 3072 | 4096 => modulus_length / 8,
         _ => return Err(RsaError::invalid_key_size()),
-    } / 8;
+    };
 
-    let p = generate_prime(rng, n_bytes_length / 2).expect("could not generate p");
-    let q = generate_prime(rng, n_bytes_length / 2).expect("could not generate q");
+    let p = generate_prime(rng, n_bytes_length / 2)?;
+    let q = generate_prime(rng, n_bytes_length / 2)?;
 
     let n = &p * &q;
 
     let phi_n = (&p - BigUint::one()) * (&q - BigUint::one());
 
     let e = BigUint::from_u32(PUBLIC_EXPONENT).unwrap();
-    let d = modular_inverse(&e, &phi_n).expect("could not find d as the inverse of e in phi(n)");
+
+    if (&phi_n % &e) == BigUint::zero() {
+        return generate_rsa_keys(rng, modulus_length);
+    }
+
+    let d = match modular_inverse(&e, &phi_n) {
+        Some(d) => d,
+        None => return Err(RsaError::arithmetic_error()),
+    };
 
     Ok((
         RsaPublicKey {

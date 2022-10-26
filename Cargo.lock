@@ -534,7 +534,7 @@ checksum = "a3f87b73ce11b1619a3c6332f45341e0047173771e8b8b73f87bfeefb7b56244"
 
 [[package]]
 name = "rsa-oaep-pss"
-version = "1.0.3"
+version = "1.0.4"
 dependencies = [
  "cipher",
  "criterion",

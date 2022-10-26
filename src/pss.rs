@@ -23,13 +23,11 @@ impl<T> RsaPss<T>
 where
     T: RngCore + CryptoRng,
 {
-     
     /// Create a new [`RsaPss`] object using the provided RNG and hash function.
     pub fn new(rng: T, hash: &dyn DynDigest) -> Self {
         Self::new_with_salt_length(rng, hash, 32)
     }
 
-    
     /// Create a new [`RsaPss`] object using the provided RNG, hash function and salt length.
     pub fn new_with_salt_length(rng: T, hash: &dyn DynDigest, salt_length: usize) -> Self {
         RsaPss {

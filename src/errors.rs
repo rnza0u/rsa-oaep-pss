@@ -5,7 +5,6 @@ pub struct RsaError {
 }
 
 impl RsaError {
-
     pub(crate) fn new(msg: &str) -> Self {
         RsaError {
             message: msg.to_string(),
@@ -54,6 +53,10 @@ impl RsaError {
 
     pub(crate) fn invalid_signature() -> Self {
         Self::new("invalid signature")
+    }
+
+    pub(crate) fn arithmetic_error() -> Self {
+        Self::new("arithmetic error")
     }
 }
 
