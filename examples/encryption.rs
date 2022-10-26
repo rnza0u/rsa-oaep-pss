@@ -1,11 +1,9 @@
 use sha2::Digest;
 
 fn main() {
-
     let mut rng = rand::rngs::OsRng;
 
     println!("generating keys...");
-
 
     let (public_key, private_key) =
         rsa_oaep_pss::generate_rsa_keys(&mut rng, 2048).expect("keys generation error");
@@ -20,7 +18,11 @@ fn main() {
         .encrypt(&public_key, message)
         .expect("encryption error");
 
-    println!("encrypted {} bytes to {} bytes of ciphertext...", message.len(), ciphertext.len());
+    println!(
+        "encrypted {} bytes to {} bytes of ciphertext...",
+        message.len(),
+        ciphertext.len()
+    );
 
     println!("decrypting message...");
 
@@ -28,7 +30,7 @@ fn main() {
         .decrypt(&private_key, &ciphertext)
         .expect("decryption error");
 
-    assert_eq!(recovered, message); 
+    assert_eq!(recovered, message);
 
     println!("decryption OK");
 }
