@@ -4,8 +4,10 @@ use rand_core::{CryptoRng, RngCore};
 use crate::{
     arithmetic::ceil_div,
     mgf::Mgf1,
-    utils::{i2osp, os2ip, xor_buffers},
-    RsaError, RsaPrivateKey, RsaPublicKey,
+    convert::{i2osp, os2ip, xor_buffers},
+    {RsaError, RsaError::*}, 
+    RsaPrivateKey, 
+    RsaPublicKey,
 };
 
 /// A Probabilistic Signature Scheme object used for signature and verification.
@@ -67,7 +69,7 @@ where
         let k = public_key.get_modulus_size();
 
         if signature.len() != k {
-            return Err(RsaError::invalid_signature());
+            return Err(InvalidSignature);
         }
 
         let s = os2ip(signature)?;
@@ -78,7 +80,7 @@ where
 
         match self.emsa_pss_verify(&message, &em, (k * 8) - 1) {
             true => Ok(()),
-            false => Err(RsaError::invalid_signature()),
+            false => Err(InvalidSignature),
         }
     }
 
@@ -92,18 +94,18 @@ where
         self.hash.update(m);
         match self.hash.finalize_into_reset(&mut m_hash) {
             Ok(()) => (),
-            Err(_) => return Err(RsaError::invalid_buffer_size()),
+            Err(_) => return Err(InvalidBufferSize),
         };
 
         if em_len < h_len + self.s_len + 2 {
-            return Err(RsaError::encoding_error());
+            return Err(EncodingError);
         }
 
         let mut salt = vec![0_u8; self.s_len];
 
         match self.rng.try_fill_bytes(&mut salt) {
             Ok(()) => (),
-            Err(_) => return Err(RsaError::random_generator_failure()),
+            Err(_) => return Err(RandomGeneratorFailure),
         }
 
         let p_mh_s = [[0x00].repeat(8), m_hash, salt.clone()].concat();
@@ -112,7 +114,7 @@ where
         self.hash.update(&p_mh_s);
         match self.hash.finalize_into_reset(&mut p_mh_s_h) {
             Ok(()) => (),
-            Err(_) => return Err(RsaError::invalid_buffer_size()),
+            Err(_) => return Err(InvalidBufferSize),
         };
 
         let ps = vec![0_u8; em_len - self.s_len - h_len - 2];

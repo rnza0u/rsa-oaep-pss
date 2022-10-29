@@ -2,7 +2,7 @@ use digest::DynDigest;
 use num_bigint::BigUint;
 use num_traits::FromPrimitive;
 
-use crate::{utils::i2osp, RsaError};
+use crate::{convert::i2osp, {RsaError, RsaError::*}};
 
 pub struct Mgf1 {
     hash: Box<dyn DynDigest>,
@@ -17,7 +17,7 @@ impl Mgf1 {
 
     pub fn mask(&mut self, seed: &[u8], output: &mut [u8]) -> Result<(), RsaError> {
         if output.len() > (2_usize).pow(32) {
-            return Err(RsaError::mask_too_long());
+            return Err(MaskTooLong);
         }
 
         let hash_length = self.hash.output_size();
@@ -29,7 +29,7 @@ impl Mgf1 {
             self.hash.update(&seed_c);
             let mut hash = vec![0_u8; hash_length];
             match self.hash.finalize_into_reset(&mut hash) {
-                Err(_) => return Err(RsaError::invalid_buffer_size()),
+                Err(_) => return Err(InvalidBufferSize),
                 _ => (),
             };
             output[offset..offset + hash_length].copy_from_slice(&hash);

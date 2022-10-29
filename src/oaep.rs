@@ -3,8 +3,10 @@ use rand_core::{CryptoRng, RngCore};
 
 use crate::{
     mgf::Mgf1,
-    utils::{i2osp, os2ip, xor_buffers},
-    RsaError, RsaPrivateKey, RsaPublicKey,
+    convert::{i2osp, os2ip, xor_buffers},
+    {RsaError, RsaError::*}, 
+    RsaPrivateKey, 
+    RsaPublicKey,
 };
 
 /// An Optimal Asymmetric Encryption Padding scheme object used for encryption or decryption.
@@ -54,7 +56,7 @@ where
         let k = public_key.get_modulus_size();
 
         if message.len() > k - two_hash_length - 2 {
-            return Err(RsaError::message_too_long());
+            return Err(MessageTooLong);
         }
 
         let mut label_hash = vec![0_u8; hash_length];
@@ -62,7 +64,7 @@ where
         self.hash.update(label);
 
         match self.hash.finalize_into_reset(&mut label_hash) {
-            Err(_) => return Err(RsaError::invalid_buffer_size()),
+            Err(_) => return Err(InvalidBufferSize),
             _ => (),
         };
 
@@ -72,7 +74,7 @@ where
         let mut seed = vec![0_u8; hash_length];
 
         match self.rng.try_fill_bytes(&mut seed) {
-            Err(_) => return Err(RsaError::random_generator_failure()),
+            Err(_) => return Err(RandomGeneratorFailure),
             _ => (),
         };
 
@@ -120,14 +122,14 @@ where
             .iter()
             .any(|check| *check)
         {
-            return Err(RsaError::decryption_error());
+            return Err(DecryptionError);
         }
 
         let ciphertext_as_biguint = os2ip(&ciphertext)?;
 
         let m = match private_key.rsadp(&ciphertext_as_biguint) {
             Ok(m) => m,
-            Err(_) => return Err(RsaError::decryption_error()),
+            Err(_) => return Err(DecryptionError),
         };
 
         let em = i2osp(&m, k)?;
@@ -137,7 +139,7 @@ where
         self.hash.update(label);
 
         match self.hash.finalize_into_reset(&mut label_hash) {
-            Err(_) => return Err(RsaError::invalid_buffer_size()),
+            Err(_) => return Err(InvalidBufferSize),
             _ => (),
         };
 
@@ -145,7 +147,7 @@ where
         let y = em[0];
 
         if y != 0 {
-            return Err(RsaError::decryption_error());
+            return Err(DecryptionError);
         }
 
         let mut masked_seed = vec![0_u8; hash_length];
@@ -170,7 +172,7 @@ where
         label_hash_in_db.copy_from_slice(&db[0..hash_length]);
 
         if label_hash_in_db != label_hash {
-            return Err(RsaError::decryption_error());
+            return Err(DecryptionError);
         }
 
         let mut message_start = hash_length;
@@ -178,10 +180,10 @@ where
             match db[message_start] {
                 0x00 => message_start += 1,
                 0x01 => break,
-                _ => return Err(RsaError::decryption_error()),
+                _ => return Err(DecryptionError),
             };
             if message_start == db.len() - 1 {
-                return Err(RsaError::decryption_error());
+                return Err(DecryptionError);
             }
         }
         message_start += 1;

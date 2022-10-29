@@ -21,8 +21,9 @@ num-traits = "0.2.15"
 cipher = "0.4.3"
 rand_core = "0.6.4"
 num_cpus = "1.13.1"
-signature = "1.6.4"
 digest = { version="0.10.5", features=["alloc"] }
+asn1 = "0.12.2"
+base64 = "0.13.1"
 
 [dev-dependencies]
 rand = "0.8.5"

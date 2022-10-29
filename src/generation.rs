@@ -2,7 +2,7 @@ use num_bigint::BigUint;
 use num_traits::{FromPrimitive, One};
 use rand_core::{CryptoRng, RngCore};
 
-use crate::{arithmetic::modular_pow, utils::os2ip};
+use crate::{arithmetic::modular_pow, convert::os2ip};
 
 use super::errors::RsaError;
 
@@ -21,7 +21,7 @@ where
 
     loop {
         match rng.try_fill_bytes(&mut random_bytes) {
-            Err(_) => return Err(RsaError::random_generator_failure()),
+            Err(_) => return Err(RsaError::RandomGeneratorFailure),
             _ => (),
         };
 

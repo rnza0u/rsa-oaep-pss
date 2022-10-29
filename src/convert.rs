@@ -1,12 +1,12 @@
 use num_bigint::{BigUint, ToBigUint};
 use num_traits::{FromPrimitive, ToPrimitive, Zero};
 
-use crate::errors::RsaError;
+use crate::{errors::RsaError::*, RsaError};
 
 #[inline]
 pub(crate) fn i2osp(x: &BigUint, size: usize) -> Result<Vec<u8>, RsaError> {
     if size == 0 {
-        return Err(RsaError::integer_too_large());
+        return Err(IntegerTooLarge);
     }
 
     let mut _x = x.clone();
@@ -20,7 +20,7 @@ pub(crate) fn i2osp(x: &BigUint, size: usize) -> Result<Vec<u8>, RsaError> {
     if _x.is_zero() {
         Ok(output)
     } else {
-        Err(RsaError::integer_too_large())
+        Err(IntegerTooLarge)
     }
 }
 
@@ -65,7 +65,7 @@ pub(crate) fn os2ip(x: &[u8]) -> Result<BigUint, RsaError> {
     let length = x.len();
 
     if length == 0 {
-        return Err(RsaError::octet_string_empty());
+        return Err(OctetStringEmpty);
     }
 
     let mut output = BigUint::zero();
@@ -109,7 +109,7 @@ fn double_conversion() {
 
 pub fn xor_buffers(a: &[u8], b: &[u8]) -> Result<Vec<u8>, RsaError> {
     if a.len() != b.len() {
-        return Err(RsaError::invalid_buffer_size());
+        return Err(InvalidBufferSize);
     }
     let mut output = a.to_vec();
     for (i, x) in b.iter().enumerate() {
