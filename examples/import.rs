@@ -43,8 +43,8 @@ SsEYVQKBgAqbQPIEybcKm9JvoEcNVXPaVOReMavPbGmrGETj1bqxKK8KghA+jEwh
 
 fn main () -> Result<(), RsaError> {
 
-    let public_key = rsa_oaep_pss::RsaPublicKey::from_pem(&PUBLIC_KEY_PEM)?;
-    let private_key = rsa_oaep_pss::RsaPrivateKey::from_pem(&PRIVATE_KEY_PEM)?;
+    let _public_key = rsa_oaep_pss::RsaPublicKey::from_pem(&PUBLIC_KEY_PEM)?;
+    let _private_key = rsa_oaep_pss::RsaPrivateKey::from_pem(&PRIVATE_KEY_PEM)?;
 
     Ok(())
 }
