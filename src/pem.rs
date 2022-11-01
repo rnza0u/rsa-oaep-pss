@@ -7,7 +7,6 @@ const PEM_END: &str = "END";
 
 const RSA_PUBLIC_KEY_PEM_IDENTIFIER: &str = "RSA PUBLIC KEY";
 
-
 impl FromPem for RsaPublicKey {
     fn from_pem(pem_encoded: &str) -> Result<Self, RsaError> {
         let der = parse_pem(pem_encoded)?;

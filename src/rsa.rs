@@ -143,7 +143,7 @@ fn check_message_representative(r: &BigUint, m: &BigUint) -> Result<(), RsaError
 }
 
 /// Generate a pair of RSA keys using the provided RNG and modulus length in bits.
-/// Acceptable modulus length are 2048, 3072 or 4096.
+/// Acceptable modulus lengths are 2048, 3072 or 4096.
 pub fn generate_rsa_keys<T>(
     rng: &mut T,
     modulus_length: usize,
@@ -171,50 +171,4 @@ where
     )?;
 
     Ok((public_key, private_key))
-}
-
-#[test]
-fn encryption_and_decryption() {
-    //use num_traits::FromPrimitive;
-
-    /*let public_key = RsaPublicKey {
-        modulus: BigUint::from_u8(119).unwrap(),
-        public_exponent: BigUint::from_u8(5).unwrap(),
-    };
-
-    let private_key = RsaPrivateKey {
-        modulus: BigUint::from_u8(119).unwrap(),
-        private_exponent: BigUint::from_u8(77).unwrap(),
-    };
-
-    let message = BigUint::from_u8(19).unwrap();
-
-    let ciphertext = public_key.rsaep(&message).unwrap();
-    assert_eq!(ciphertext, BigUint::from_u8(66).unwrap());
-
-    let recovered = private_key.rsadp(&ciphertext).unwrap();
-    assert_eq!(recovered, message);*/
-}
-
-#[test]
-fn sign_and_verify() {
-    //use num_traits::FromPrimitive;
-
-    /*let public_key = RsaPublicKey {
-        modulus: BigUint::from_u8(119).unwrap(),
-        public_exponent: BigUint::from_u8(5).unwrap(),
-    };
-
-    let private_key = RsaPrivateKey {
-        modulus: BigUint::from_u8(119).unwrap(),
-        private_exponent: BigUint::from_u8(77).unwrap(),
-    };
-
-    let message = BigUint::from_u8(19).unwrap();
-
-    let signature = private_key.rsasp(&message).unwrap();
-    assert_eq!(signature, BigUint::from_u8(66).unwrap());
-
-    let verification = public_key.rsavp(&signature).unwrap();
-    assert_eq!(verification, message);*/
 }
