@@ -3,11 +3,10 @@ use rand_core::{CryptoRng, RngCore};
 
 use crate::{
     arithmetic::ceil_div,
-    mgf::Mgf1,
     convert::{i2osp, os2ip, xor_buffers},
-    {RsaError, RsaError::*}, 
-    RsaPrivateKey, 
-    RsaPublicKey,
+    mgf::Mgf1,
+    RsaPrivateKey, RsaPublicKey,
+    {RsaError, RsaError::*},
 };
 
 /// A Probabilistic Signature Scheme object used for signature and verification.

@@ -15,28 +15,27 @@ pub enum RsaError {
     ImportError,
     ExportError,
     ParamsError,
-    RandomGeneratorFailure
+    RandomGeneratorFailure,
 }
 
 impl std::fmt::Display for RsaError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-
         let message = match self {
-            IntegerTooLarge => "integer too large",
-            OctetStringEmpty => "octet string empty",
-            MessageRepresentativeOutOfRange => "message representative out of range",
-            MessageTooLong => "message too long",
-            InvalidKeySize => "invalid key size",
-            InvalidBufferSize => "invalid buffer size",
-            MaskTooLong => "mask too long",
-            DecryptionError => "decryption error",
-            EncodingError => "encoding error",
-            InvalidSignature => "invalid signature",
-            ArithmeticError => "arithmetic error",
-            ImportError => "import error",
-            ExportError => "export error",
-            ParamsError => "params error",
-            RandomGeneratorFailure => "random generator failure"
+            RsaError::IntegerTooLarge => "integer too large",
+            RsaError::OctetStringEmpty => "octet string empty",
+            RsaError::MessageRepresentativeOutOfRange => "message representative out of range",
+            RsaError::MessageTooLong => "message too long",
+            RsaError::InvalidKeySize => "invalid key size",
+            RsaError::InvalidBufferSize => "invalid buffer size",
+            RsaError::MaskTooLong => "mask too long",
+            RsaError::DecryptionError => "decryption error",
+            RsaError::EncodingError => "encoding error",
+            RsaError::InvalidSignature => "invalid signature",
+            RsaError::ArithmeticError => "arithmetic error",
+            RsaError::ImportError => "import error",
+            RsaError::ExportError => "export error",
+            RsaError::ParamsError => "params error",
+            RsaError::RandomGeneratorFailure => "random generator failure",
         };
 
         f.write_fmt(format_args!("{}", message))
