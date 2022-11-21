@@ -13,12 +13,6 @@ The following features are available:
 
 > :warning: **This crate has not been audited by any peer and is not production-ready**: We encourage you to review the code carefully before using it.
 
-# Todo
-
-- Zeroize everything (using `zeroize` crate)
-- Implement miller rabin pour prime checking
-- Implement Signer trait from `signature` crate
-
 ## Useful links
 
 - [crates.io](https://crates.io/crates/rsa_oaep_pss)
@@ -99,3 +93,9 @@ You can run examples contained in the `examples` folder by using the following c
 ```sh
 cargo run --example <filename> --release 
 ```
+
+## Todo
+
+- Zeroize everything (using `zeroize` crate)
+- Implement miller rabin pour prime checking
+- Implement Signer trait from `signature` crate
