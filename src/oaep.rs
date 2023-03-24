@@ -2,11 +2,10 @@ use digest::DynDigest;
 use rand_core::{CryptoRng, RngCore};
 
 use crate::{
-    mgf::Mgf1,
     convert::{i2osp, os2ip, xor_buffers},
-    {RsaError, RsaError::*}, 
-    RsaPrivateKey, 
-    RsaPublicKey,
+    mgf::Mgf1,
+    RsaPrivateKey, RsaPublicKey,
+    {RsaError, RsaError::*},
 };
 
 /// An Optimal Asymmetric Encryption Padding scheme object used for encryption or decryption.

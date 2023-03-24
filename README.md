@@ -71,6 +71,21 @@ let verification = pss.verify(&public_key, message, &signature);
 assert!(verification.is_ok());
 ```
 
+### Importing and exporting of keys
+
+```rust
+use rsa_oaep_pss::{FromPem, ToPem};
+
+let pem_public_key = std::fs::read_to_string("public.pem")?;
+
+let public_key = RsaPublicKey::from_pem(&pem_public_key)?;
+
+let re_exported_pem_public_key = public_key.to_pem()?;
+
+assert_eq!(pem_public_key, re_exported_pem_public_key);
+```
+You can also use `FromDer` and `ToDer` for dealing with raw DER data.
+
 ## Run the examples
 
 You can run examples contained in the `examples` folder by using the following command:

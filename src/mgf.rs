@@ -2,7 +2,10 @@ use digest::DynDigest;
 use num_bigint::BigUint;
 use num_traits::FromPrimitive;
 
-use crate::{convert::i2osp, {RsaError, RsaError::*}};
+use crate::{
+    convert::i2osp,
+    {RsaError, RsaError::*},
+};
 
 pub struct Mgf1 {
     hash: Box<dyn DynDigest>,
